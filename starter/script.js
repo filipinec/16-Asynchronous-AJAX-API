@@ -34,7 +34,6 @@ const getCountryData = function (country) {
     countriesContainer.style.opacity = '1';
   });
 };
-// Made card for 1 country
-
+// Made card for more country
 getCountryData('macedonia');
 getCountryData('serbia');
