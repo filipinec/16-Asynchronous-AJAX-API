@@ -65,6 +65,7 @@ const getCountryAndNeighbour = function (country) {
   request.send();
 
   request.addEventListener('load', function () {
+    console.log(this.responseText);
     const [data] = JSON.parse(this.responseText); //Convert to JSON
     console.log(data);
     //Render country
