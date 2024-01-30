@@ -97,7 +97,22 @@ const countriesContainer = document.querySelector('.countries');
 
 ////////////////////////////////////////
 
-// Promises and Fetch API
+//  Fetch API - Promise/Consume
 
-const request = fetch('https://restcountries.com/v3.1/name/macedonia');
-console.log(request);
+// const getCountryData = function (country) {
+//   fetch(`https://restcountries.com/v3.1/name/${country}`)
+//     .then(response => response.json())
+//     .then(data => console.log(data));
+// };
+
+// getCountryData('macedonia');
+
+async function getCountry(country) {
+  const response = await axios({
+    method: 'GET',
+    url: `https://restcountries.com/v3.1/name/${country}`,
+  });
+  console.log(response);
+}
+
+getCountry('portugal');
