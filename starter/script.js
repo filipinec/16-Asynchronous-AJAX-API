@@ -97,8 +97,6 @@ const countriesContainer = document.querySelector('.countries');
 
 ////////////////////////////////////////
 
-//  Fetch API - Promise/Consume/Chaining
-//  Same example like XML Request
 
 const renderCountry = function (data, className = '') {
   const html = `<article class="country ${className}">
@@ -117,21 +115,25 @@ const renderCountry = function (data, className = '') {
   countriesContainer.style.opacity = '1';
 };
 
-const getCountryData = function (country) {
-  //Country 1
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
-    .then(data => {
-      renderCountry(data[0]);
-      const neighbours = data[0].borders;
-      console.log(neighbours);
-      if (!neighbours) return;
-      //Neighbour country
-      fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`).then(response2 => response2.json());
-    }).then(data2 => data2.forEach(el => {
-      rende
-      
-    }););
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
 };
 
-getCountryData('macedonia');
+const whereAmI = async function () {
+  const pos = await getPosition();
+  const {latitude: lat, longitude:lng} = pos.coords
+
+  // Reverse geocoding
+  const resGeo = await axios.get(`https:geocode.xyz/${lat},${lng}?geoit=json`).then(response => {console.log(response.data.country)})
+  console.log(resGeo)
+
+// // Country Data
+// const res = await axios.get(`https://restcountries.com/v3.1/name/${resGeo}`).then(response => {console.log(response)})
+// renderCountry()
+
+
+  
+}
+whereAmI()
