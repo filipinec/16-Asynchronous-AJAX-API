@@ -120,20 +120,22 @@ const getPosition = function () {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 };
-
 const whereAmI = async function () {
+  try{
   const pos = await getPosition();
   const {latitude: lat, longitude:lng} = pos.coords
 
-  // Reverse geocoding
-  const resGeo = await axios.get(`https:geocode.xyz/${lat},${lng}?geoit=json`).then(response => {console.log(response.data.country)})
-  console.log(resGeo)
-
-// // Country Data
-// const res = await axios.get(`https://restcountries.com/v3.1/name/${resGeo}`).then(response => {console.log(response)})
-// renderCountry()
-
-
+    // Reverse geocoding
+      const resGeo = await axios.get(`https:geocode.xyz/${lat},${lng}?geoit=json`)
   
+    // Country Data
+      const res = await axios.get(`https://restcountries.com/v3.1/name/${resGeo.data.country}`)
+      return res.data
+
+} catch(error) {
+  alert(error)
 }
-whereAmI()
+}
+whereAmI().then(countryData => {
+  renderCountry(countryData[0])
+})
